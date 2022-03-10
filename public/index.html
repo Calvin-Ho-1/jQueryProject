@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"
+    <title>Video Game Planner</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <!-- <link rel="icon" type="image/x-icon" href="images/favicon.ico"> -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+</head>
+
+<body>
+
+<!-- ================================================================================ -->
+<!-- ===========================HOME===================================================== -->
+<!-- ================================================================================ -->
+<div data-role="page" id="home">
+    <!-- header -->
+    <div data-role="header" data-theme='b'>
+        <div data-role="navbar" data-theme='b'>
+            <ul>
+               
+                <li><a href="#home">Home Page</a></li>
+                <li><a href="#add">Add A Video Game</a></li>
+                <li><a href="#list">List All Video Games</a></li>
+                <li><a href="#sort">Sort Video Games By Category</a></li>
+                
+
+
+            </ul>
+        </div><!-- /navbar -->
+        <h2>Video Games</h2>
+        
+    </div>
+
+
+
+    <!-- content -->
+    <div data-role="content" data-theme='e'>
+        <h1></h1>
+        <img class="image" src="./images/videogameimage.jpg" alt="image of a controller">
+    </div>
+
+
+
+
+    <!-- game footer -->
+    <div data-role="footer" data-theme='b'>
+        <h3>Home footer here</h3>
+    </div>
+</div>
+
+<!-- ================================================================================ -->
+<!-- ==============================ADD============================================= -->
+<!-- ================================================================================ -->
+
+<div data-role="page" id="add">
+    <!-- header -->
+
+    <div data-role="header" data-theme='b'>
+        <div data-role="navbar" data-theme='b'>
+            <ul>
+                <li><a href="#home">Home Page</a></li>
+                <li><a href="#add">Add A Video Game</a></li>
+                <li><a href="#list">List All Video Games</a></li>
+                <li><a href="#sort">Sort Video Games By Category</a></li>
+            </ul>
+        </div><!-- /navbar -->
+        <h2>Add a game</h2>
+    </div>
+
+
+
+    <!-- content -->
+    <div data-role="content" data-theme='e'>
+
+
+        <h3>This section will have the content about the specific game that you're mentioning which includes</h3>
+        <p>Genre of the game, How often you play it, the year the game released, and the company who created the game</p>
+        <div data-role="content" data-theme='e'>
+            Enter a Video Game <br />
+            <input type="text" value="" id="title" />
+            Enter The Game's Release Year <br />
+            <input type="text" value="" id="year" />
+            Enter The Amount of Hours You Played<br />
+            <input type="text" value="" id="playtime" />
+            
+            <label for="select-type">Select a Genre</label>
+            <select name="select-type" id="select-type">
+                <option value="Action">Action</option>
+                <option value="Horror">Horror</option>
+                <option value="FPS">First Person Shooter</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="OpenWorld">Open World</option>
+                <option value="Moba">Moba</option>
+                <option value="BattleRoyale">Battle Royale</option>
+                <option value="Other">Other</option>    
+            </select>
+            
+            <input type="button" value="Click To Add The Video Game" id="newGame" />
+        </div>
+
+    </div>
+
+
+
+    
+    <div data-role="footer" data-theme='b'>
+        <p>Add footer here</p>
+    </div>
+</div>
+
+
+<!-- ================================================================================ -->
+<!-- ==============================LIST============================================= -->
+<!-- ================================================================================ -->
+
+<div data-role="page" id="list">
+  
+    <!-- header -->
+    <div data-role="header" data-theme='b'>
+        <div data-role="navbar" data-theme='b'>
+            <ul>
+                <li><a href="#home">Home Page</a></li>
+                <li><a href="#add">Add A Video Game</a></li>
+                <li><a href="#list">List All Video Games</a></li>
+                <li><a href="#sort">Sort Video Games By Category</a></li>
+               
+            </ul>
+        </div><!-- /navbar -->
+        <h2>List Games</h2>
+
+
+    </div>  
+
+
+
+    <!-- content -->
+    <div data-role="content" data-theme='e'>
+
+    <p>This is where you'll see all of the games displayed</p>
+    <p>*will include active lis*</p>
+
+        <div id="gameList"></div>
+    </div>
+
+
+    
+    <!-- list footer -->
+    <div data-role="footer" data-theme='b'>
+        <h3>list footer</h3>
+    </div>
+</div>
+
+
+
+  <!-- Start of  page -->
+<div data-role="page" id="details">
+  
+    <!--   page header -->
+    <div data-role="header" data-theme='b'>
+      
+      <div data-role="navbar" data-theme='b'>
+        <ul>
+          <li><a href="#home">Home Page</a></li>
+          <li><a href="#add">Add A Video Game</a></li>
+          <li><a href="#list">List All Video Games</a></li>
+          <li><a href="#sort">Sort Video Games By Category</a></li>
+  
+        </ul>
+      </div>
+      <h1>Video Games</h1>
+      
+    </div>
+  
+    <!--  content -->
+    <div data-role="content" data-theme='e'>
+        <p> Here are the details</p>
+        <p id="title">1</p>
+        <p id="year">2</p>
+        <p id="playtime">3</p>
+        <p id="genre">4</p>
+    </div>
+        <!-- A button that changes playtime and a delete button-->
+        <!--CHECK THE DELETE IF IT WORKS!!!-->
+        
+        <input type="button" value="Delete The Game" id="delete" style="background: rgb(216, 11, 11)"/>
+
+
+
+     <!--    footer -->
+    <div data-role="footer" data-theme='b'>
+        <h1>detail Footer</h1>
+
+    </div>
+  
+</div>
+
+
+
+
+<!-- SORT  -->
+<div data-role="page" id="sort">
+    <!-- header -->
+
+    <div data-role="header" data-theme='b'>
+        <div data-role="navbar" data-theme='b'>
+            <ul>
+                <li><a href="#home">Home Page</a></li>
+                <li><a href="#add">Add A Video Game</a></li>
+                <li><a href="#list">List All Video Games</a></li>
+                <li><a href="#sort">Sort Video Games By Category</a></li>
+            </ul>
+        </div><!-- /navbar -->
+        <h2>Sort out your video games!</h2>
+    </div>
+
+
+
+    <!-- content -->
+    <div data-role="content" data-theme='e'>
+
+
+        <h3>This will sort out the game by category. These categories may include company or the creator(if only 1 developer), playtime, your rating, year it was created, or genre (there will be more or less later on).</h3>
+        <p>*will include active lis*</p>
+
+    </div>
+
+
+
+    
+    <div data-role="footer" data-theme='b'>
+        <p>Sort Footer here</p>
+    </div>
+</div>
+
+</body>
+
+</html>
