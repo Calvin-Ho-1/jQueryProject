@@ -90,8 +90,8 @@
             Enter The Amount of Hours You Played<br />
             <input type="text" value="" id="playtime" />
             
-            <label for="select-type">Select a Genre</label>
-            <select name="select-type" id="select-type">
+            <label for="select-genre">Select a Genre</label>
+            <select name="select-genre" id="select-genre">
                 <option value="Action">Action</option>
                 <option value="Horror">Horror</option>
                 <option value="FPS">First Person Shooter</option>
@@ -174,17 +174,17 @@
   
         </ul>
       </div>
-      <h1>Video Games</h1>
+      <h1>Video Game Details</h1>
       
     </div>
   
     <!--  content -->
     <div data-role="content" data-theme='e'>
         <p> Here are the details</p>
-        <p id="title">1</p>
-        <p id="year">2</p>
-        <p id="playtime">3</p>
-        <p id="genre">4</p>
+        <p id="onetitle"></p>
+        <p id="oneyear"></p>
+        <p id="oneplaytime"></p>
+        <p id="onegenre"></p>
     </div>
         <!-- A button that changes playtime and a delete button-->
         <!--CHECK THE DELETE IF IT WORKS!!!-->
@@ -228,7 +228,13 @@
 
         <h3>This will sort out the game by category. These categories may include company or the creator(if only 1 developer), playtime, your rating, year it was created, or genre (there will be more or less later on).</h3>
         <p>*will include active lis*</p>
-
+            <p> Here are my games in that specific category</p>
+            <div id="gameListSort"></div>
+            <!-- <input type="button" value="100+ hours playtime" id="buttonHundredHours" data-inline="true" /> -->
+            <input type="button" value="Show Games made before 2010" id="buttonShowGameBefore" data-inline="true" />
+            <input type="button" value="Show Games made after 2010" id="buttonShowGameAfter" data-inline="true" />
+            
+          </div>
     </div>
 
 

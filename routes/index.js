@@ -4,19 +4,20 @@ var router = express.Router();
 let ServerGameArray = [];
 
 // Changed GameObject to VideoGame
-let VideoGame = function (pTitle, pYear, pPlaytime = 0) {
+let VideoGame = function (pTitle, pYear, pPlaytime, pGenre) {
     this.ID = Math.random().toString(16).slice(5)  // tiny chance could get duplicates!
     this.title = pTitle;
     this.year = pYear;
     this.playtime = pPlaytime;
+    this.genre = pGenre;
     //this.creator = pCreator;
 }
 
 //A very real game with a very real creator
 // Also planning to remove year and creator with something else
-ServerGameArray.push(new VideoGame("A real game", 2022, 694));
-ServerGameArray.push(new VideoGame("Something creative", 2014, 234));
-ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999));
+ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
+ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
+ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
 
 
 console.log(ServerGameArray);
@@ -45,6 +46,31 @@ router.post('/add', function(req, res) {
     success : 'This has been updated successfully'
   }
   res.end(JSON.stringify(response)); // sends a reply
+});
+
+//added
+router.delete('/DeleteGame/:ID', (req, res) => {
+  const ID = req.params.ID;
+  let found = false;
+  console.log(ID);    
+
+  for(var i = 0; i < ServerGameArray.length; i++) // find the match
+  {
+      if(ServerGameArray[i].ID === ID){
+        ServerGameArray.splice(i,1);  // remove object from array
+          found = true;
+          break;
+      }
+  }
+
+  if (!found) {
+    console.log("not found");
+    return res.status(500).json({
+      status: "error"
+    });
+  } else {
+  res.send('Game ' + ID + ' deleted!');
+  }
 });
 
 module.exports = router;
