@@ -37,8 +37,8 @@ let selectedGenre = "None right now";
          let newGame = new VideoGame ( 
          document.getElementById("title").value, 
          document.getElementById("year").value,
-         document.getElementById("playtime").value);
-         document.getElementById("genre").value,
+         document.getElementById("playtime").value,
+         selectedGenre);
         
  
              
@@ -127,10 +127,11 @@ let selectedGenre = "None right now";
         gameArray = JSON.parse(localStorage.getItem('gameArray'));  
   
         let arrayPointer = GetArrayPointer(localID);
+        document.getElementById("onetitle").innerHTML = "The unique ID for this game is: " + gameArray[arrayPointer].element.ID;
         document.getElementById("onetitle").innerHTML = "The title is: " + gameArray[arrayPointer].title;
         document.getElementById("oneyear").innerHTML = "Year released: " + gameArray[arrayPointer].year;
-        document.getElementById("oneplaytime").innerHTML = "Your playtime hours: " + gameArray[arrayPointer].playtime;
-        document.getElementById("onegenre").innerHTML = "Genre: " + gameArray[arrayPointer].genre;
+        document.getElementById("oneplaytime").innerHTML = "Your current playtime: " + gameArray[arrayPointer].playtime;
+        document.getElementById("onegenre").innerHTML = "Game genre: " + gameArray[arrayPointer].genre;
 
     });
 
