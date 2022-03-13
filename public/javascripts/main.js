@@ -25,6 +25,8 @@ let selectedGenre = "None right now";
  // gameArray.push(new GameObject("Something creative", "2014", "A gamer"));
  // gameArray.push(new GameObject("Play vid game", "2018", "Someone"));
  //  console.log(gameArray);
+
+ 
  
  document.addEventListener("DOMContentLoaded", function () {
 
@@ -71,6 +73,30 @@ let selectedGenre = "None right now";
         document.location.href = "index.html#list";  // go back to game list 
     });
 
+    //*****************
+
+    // let pointer = 0;
+    // document.getElementById("update").addEventListener("click", function (){
+    //     gameArray[pointer].playtime = document.getElementById("updateHours").value;
+    //     console.log(gameArray[pointer]);
+
+    //     $.ajax({
+    //         url : "/UpdateHours"+ gameArray.playtime,
+    //         type: "PUT",
+    //         data: JSON.stringify(gameArray[pointer]),
+    //         contentType: "application/json; charset=utf-8",
+
+    //         success: function (result) {
+    //             console.log(result);
+    //         }, 
+            
+    //     });
+        
+
+
+    // });
+
+    
     //==============================
     // 2 sort button event methods
     // document.getElementById("buttonSortTitle").addEventListener("click", function () {
@@ -127,26 +153,18 @@ let selectedGenre = "None right now";
         gameArray = JSON.parse(localStorage.getItem('gameArray'));  
   
         let arrayPointer = GetArrayPointer(localID);
-        document.getElementById("onetitle").innerHTML = "The unique ID for this game is: " + gameArray[arrayPointer].element.ID;
         document.getElementById("onetitle").innerHTML = "The title is: " + gameArray[arrayPointer].title;
         document.getElementById("oneyear").innerHTML = "Year released: " + gameArray[arrayPointer].year;
         document.getElementById("oneplaytime").innerHTML = "Your current playtime: " + gameArray[arrayPointer].playtime;
         document.getElementById("onegenre").innerHTML = "Game genre: " + gameArray[arrayPointer].genre;
 
     });
-
-
-
-    
-
-
-
-
+// document.getElementById("oneID").innerHTML = "The unique ID for this game is: " + gameArray[arrayPointer].element.ID;
 });
     
 
 
-//Reference from MovieNode================================================
+//===============================================
  function createGameList(){
      $.get("/getAllVideoGames", function(data, status){  // AJAX get
         gameArray = data;  // put the returned server json data into our local array
@@ -184,7 +202,7 @@ let selectedGenre = "None right now";
         // get our encoded value and save THIS ID value in the localStorage "dictionairy"
         localStorage.setItem('parm', parm);
         // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
-        // current movie array and save it to localStorage as well.
+        // current movie array and save it to localS    torage as well.
         let stringGameArray = JSON.stringify(gameArray); // convert array to "string"
         localStorage.setItem('gameArray', stringGameArray);
 
@@ -220,53 +238,53 @@ function GetArrayPointer(localID) {
    
 
 
-function createListSubset(whichType) {
-    // clear prior data
-    var divGameList = document.getElementById("gameListSort");
-    while (divGameList.firstChild) {    // remove any old data so don't get duplicates
-        divGameList.removeChild(divGameList.firstChild);
-    };
+// function createListSubset(whichType) {
+//     // clear prior data
+//     var divGameList = document.getElementById("gameListSort");
+//     while (divGameList.firstChild) {    // remove any old data so don't get duplicates
+//         divGameList.removeChild(divGameList.firstChild);
+//     };
 
-    var ul = document.createElement('ul');
+//     var ul = document.createElement('ul');
 
-    gameArray.forEach(function (element,) {
+//     gameArray.forEach(function (element,) {
     
-        //Might have problems
-        if (element.year === whichType) {
-            // use handy array forEach method
-            var li = document.createElement('li');
-            // adding a class name to each one as a way of creating a collection
-            li.classList.add('oneMovie');
-            // use the html5 "data-parm" to encode the ID of this particular data object
-            // that we are building an li from
-            li.setAttribute("data-parm", element.ID);
-            li.innerHTML = element.ID + ":  " + element.Title + "  " + element.Genre;
-            ul.appendChild(li);
-        }
-    });
-    divGameList.appendChild(ul)
+//         //Might have problems
+//         if (element.year === whichType) {
+//             // use handy array forEach method
+//             var li = document.createElement('li');
+//             // adding a class name to each one as a way of creating a collection
+//             li.classList.add('oneVideoGame');
+//             // use the html5 "data-parm" to encode the ID of this particular data object
+//             // that we are building an li from
+//             li.setAttribute("data-parm", element.ID);
+//             li.innerHTML = element.ID + ":  " + element.Title + "  " + element.Genre;
+//             ul.appendChild(li);
+//         }
+//     });
+//     divGameList.appendChild(ul)
 
-    // now we have the HTML done to display out list, 
-    // next we make them active buttons
-    // set up an event for each new li item, 
-    var liArray = document.getElementsByClassName("oneMovie");
-    Array.from(liArray).forEach(function (element) {
-        element.addEventListener('click', function () {
-        // get that data-parm we added for THIS particular li as we loop thru them
-        var parm = this.getAttribute("data-parm");  // passing in the record.Id
+//     // now we have the HTML done to display out list, 
+//     // next we make them active buttons
+//     // set up an event for each new li item, 
+//     var liArray = document.getElementsByClassName("oneVideoGame");
+//     Array.from(liArray).forEach(function (element) {
+//         element.addEventListener('click', function () {
+//         // get that data-parm we added for THIS particular li as we loop thru them
+//         var parm = this.getAttribute("data-parm");  // passing in the record.Id
           
-        // get our encoded value and save THIS ID value in the localStorage "dictionairy"
-        localStorage.setItem('parm', parm);
-        // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
-        // current movie array and save it to localStorage as well.
-        let stringMovieArray = JSON.stringify(movieArray); // convert array to "string"
-        localStorage.setItem('movieArray', stringMovieArray);
+//         // get our encoded value and save THIS ID value in the localStorage "dictionairy"
+//         localStorage.setItem('parm', parm);
+//         // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
+//         // current movie array and save it to localStorage as well.
+//         let stringGameArray = JSON.stringify(gameArray); // convert array to "string"
+//         localStorage.setItem('gameArray', stringGameArray);
         
-         document.location.href = "index.html#details";
-        });
-    });
+//          document.location.href = "index.html#details";
+//         });
+//     });
 
-};
+// };
 
 
 // }

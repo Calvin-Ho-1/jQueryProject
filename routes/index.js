@@ -12,15 +12,51 @@ let VideoGame = function (pTitle, pYear, pPlaytime, pGenre) {
     this.genre = pGenre;
     //this.creator = pCreator;
 }
-
 //A very real game with a very real creator
 // Also planning to remove year and creator with something else
-ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
-ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
-ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
+// ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
+// ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
+// ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
 
 
-console.log(ServerGameArray);
+// console.log(ServerGameArray);
+
+var fs = require("fs")
+
+fileManager  = {
+
+  // this will read a file and put the data in our ServerNotes array
+  // NOTE: both read and write files are synchonous, we really can't do anything
+  // useful until they are done.  If they were async, we would have to use call backs.
+  read: function() {
+    const stat = fs.statSync('gameData.json');
+    if (stat.size !== 0) {                           
+    var thedata = fs.readFileSync('gameData.json'); // read disk file
+    ServerGameArray = JSON.parse(thedata);  // turn the file data into JSON format and overwrite our array
+    }
+    else {
+      //A very real game with a very real creator
+      // Also planning to remove year and creator with something else
+      
+      //even commenting this out will still show undefined
+      ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
+      ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
+      ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
+      fileManager.write();
+    }
+  },
+  
+  write: function() {
+    let data = JSON.stringify(ServerGameArray);    // take our object data and make it writeable
+    fs.writeFileSync('gameData.json', data);  // write it
+  },
+}
+
+
+
+
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,6 +67,9 @@ router.get('/', function(req, res, next) {
 
 //shows all game data
 router.get('/getAllVideoGames', function(req, res) {
+
+  // need to get persisted data from disk before returning array
+  fileManager.read();
   res.status(200).json(ServerGameArray);
 });
 
@@ -39,6 +78,10 @@ router.post('/add', function(req, res) {
   const newGame = req.body;  // get object from req object sent from browser
   console.log(newGame);
   ServerGameArray.push(newGame); //adds to the array  
+
+  //update data to disk file
+
+  fileManager.write();
   
   //prepares a reply to the browser
   var response = {
@@ -58,6 +101,11 @@ router.delete('/DeleteGame/:ID', (req, res) => {
   {
       if(ServerGameArray[i].ID === ID){
         ServerGameArray.splice(i,1);  // remove object from array
+
+        //update data to disk file
+
+          fileManager.write();
+
           found = true;
           break;
       }
@@ -72,5 +120,44 @@ router.delete('/DeleteGame/:ID', (req, res) => {
   res.send('Game ' + ID + ' deleted!');
   }
 });
+
+// function indexOfbyKey(obj_list, key, value) {
+//   for (index in obj_list) {
+//       if (obj_list[index][key] === value) return index;
+//   }
+//   return -1;
+// }
+
+// router.put('/UpdateNote/:title', (req, res) => {
+
+// const playtimeKey = req.params.title;
+// const updatedgamehours = req.body;
+// let found = true;
+// console.log(titleKey);
+// console.log(updatedNote);
+
+// const updatedgamehours = indexOfbyKey(ServerGameArray, "playtime", playtimeKey);
+// if(indexofNote < 0) {
+//   found = false;
+// }
+// else{
+//   ServerGameArray.splice(indexofNote, 1, updatedgamehours)
+// }
+
+// fileManager.write();
+
+
+//   if (!found){
+//     console.log("Didn't update")
+//     return res.status(500).json({
+//       status: "error"
+//     });
+//   } else {
+//   res.send('Your playtime is now ' + playtimeKey );
+//   }
+
+
+// });
+
 
 module.exports = router;
