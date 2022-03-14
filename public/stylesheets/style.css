@@ -3,6 +3,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h1{
+  text-align: center;
+}
+
 a {
   color: #00B7FF;
 }
@@ -11,7 +15,7 @@ a {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 90%
+  width: 75%;
 
 }
 li{

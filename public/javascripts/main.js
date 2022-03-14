@@ -34,8 +34,7 @@ let selectedGenre = "None right now";
 
     //buttons====================================================================================
      document.getElementById("newGame").addEventListener("click", function () {
-         // use constructor, build new object and put it in array
-         //
+
          let newGame = new VideoGame ( 
          document.getElementById("title").value, 
          document.getElementById("year").value,
@@ -61,7 +60,7 @@ let selectedGenre = "None right now";
          document.getElementById("playtime").value = "";
      });
 
-     //??????????????????????????????????????/
+     //
     $(document).bind("change", "#select-genre", function (event, ui) {
         selectedGenre = $('#select-genre').val();
     });  
@@ -73,68 +72,92 @@ let selectedGenre = "None right now";
         document.location.href = "index.html#list";  // go back to game list 
     });
 
-    //*****************
-
+    //*********************
     // let pointer = 0;
-    // document.getElementById("update").addEventListener("click", function (){
-    //     gameArray[pointer].playtime = document.getElementById("updateHours").value;
+    // document.getElementById("updateButton").addEventListener("click", function(){
+    //     let which = document.getElementById("confirmUpdate").value
+
+    //     gameArray.forEach(function(item,index){
+    //         if (item.title === which)
+    //         {
+    //             document.getElementById("addPlaytime").value = item.playtime
+    //             pointer = index;
+    //             alert("Please adjust your playtime hours");
+    //         }
+    //     });
+    // });
+    // //************************* 
+        
+    // document.getElementById("updatePlaytime").addEventListener("click", function (){
+    //     gameArray[pointer].playtime = document.getElementById("addPlaytime").value;
     //     console.log(gameArray[pointer]);
 
     //     $.ajax({
-    //         url : "/UpdateHours"+ gameArray.playtime,
+    //         url : "/updatedHours/" + gameArray[pointer].ID,
     //         type: "PUT",
     //         data: JSON.stringify(gameArray[pointer]),
     //         contentType: "application/json; charset=utf-8",
 
     //         success: function (result) {
     //             console.log(result);
-    //         }, 
-            
+    //         },    
+    //         error:function(XMLHttpRequest, textStatus, errorThrown){
+    //             alert("Status: " + textStatus); alert ("Error: " + errorThrown);
+    //         } 
     //     });
         
+          
+    // });   
 
-
-    // });
+    //*****************
+    
+    
+    
 
     
     //==============================
     // 2 sort button event methods
-    // document.getElementById("buttonSortTitle").addEventListener("click", function () {
-    //     movieArray.sort(dynamicSort("title"));
-    //     createGameList();
-    //     document.location.href = "index.html#list";
-    // });
+    document.getElementById("buttonSortTitle").addEventListener("click", function () {
+        gameArray.sort(extraSort("title"));
+        createGameList();
+        document.location.href = "index.html#list";
+        console.log(gameArray);
+    });
 
-    // document.getElementById("buttonSortGenre").addEventListener("click", function () {
-    //     gameArray.sort(dynamicSort("genre"));
-    //     createGameList();
-    //     document.location.href = "index.html#list";
-    // });
+    document.getElementById("buttonSortGenre").addEventListener("click", function () {
+        //gameArray.sort(extraSort("genre"));
+        createGameList();
+        document.location.href = "index.html#list";
+        console.log(gameArray);
+    });
 
 
 
-            //-------------------------------------------------------------------------------------------
-    // document.getElementById("buttonHundredHours").addEventListener("click", function () {
+            //------------------------------------------------------------------------------------------
+
+    document.getElementById("fpsgenre").addEventListener("click", function () {
        
-    //     createListSort("Over a hundred hours");  // recreate li list after removing one
-    //     //document.location.href = "index.html#ListSome";  // go back to movie list 
-    // });
+        createListSubset("FPS");  // recreate li list after removing one
+    });
 
-    // document.getElementById("buttonShowGameBefore").addEventListener("click", function () {
+    document.getElementById("openworldgenre").addEventListener("click", function () {
        
-    //     createListSort("After 2010");  // recreate li list after removing one
-    //     //document.location.href = "index.html#ListSome";  // go back to movie list 
-    // });
-
-    // document.getElementById("buttonShowGameAfter").addEventListener("click", function () {
+        createListSubset("OpenWorld");  
        
-    //     createListSort("Before 2010");  // recreate li list after removing one
-    //     //document.location.href = "index.html#ListSome";  // go back to movie list 
-    // });
+    });
 
+    document.getElementById("genreother").addEventListener("click", function () {
+       
+        createListSubset("OtherGenres");  
+        
+    });
 
      //page before show
     $(document).on('pagebeforeshow', '#list', function () {
+        var gameList = document.getElementById("gameList");
+        while (gameList.firstChild) {    // remove any old data so don't get duplicates
+            gameList.removeChild(gameList.firstChild);
+        };
         createGameList();
     });
 
@@ -180,12 +203,12 @@ let selectedGenre = "None right now";
      gameArray.forEach(function (element,) {   // use handy array forEach method
         let li = document.createElement('li');
         // adding a class name to each one as a way of creating a collection
-        li.classList.add('oneGame'); 
+        li.classList.add('oneVideoGame'); 
         // use the html5 "data-parm" to encode the ID of this particular data object
         // that we are building an li from
         li.setAttribute("data-parm", element.ID);
-        //add ID later
-        li.innerHTML = element.ID + ":  " + element.title + "'s release year was " + element.year + " and you have played for " + element.playtime + " hours";
+        
+        li.innerHTML = "The title is " + element.title + " and its release year is " + element.year;
         ul.appendChild(li);
     }); 
      gameList.appendChild(ul)
@@ -193,7 +216,7 @@ let selectedGenre = "None right now";
      // now we have the HTML done to display out list, 
     // next we make them active buttons
     // set up an event for each new li item, 
-    var liArray = document.getElementsByClassName("oneGame");
+    var liArray = document.getElementsByClassName("oneVideoGame");
     Array.from(liArray).forEach(function (element) {
         element.addEventListener('click', function () {
         // get that data-parm we added for THIS particular li as we loop thru them
@@ -202,7 +225,7 @@ let selectedGenre = "None right now";
         // get our encoded value and save THIS ID value in the localStorage "dictionairy"
         localStorage.setItem('parm', parm);
         // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
-        // current movie array and save it to localS    torage as well.
+        // current game array and save it to localS    torage as well.
         let stringGameArray = JSON.stringify(gameArray); // convert array to "string"
         localStorage.setItem('gameArray', stringGameArray);
 
@@ -238,58 +261,78 @@ function GetArrayPointer(localID) {
    
 
 
-// function createListSubset(whichType) {
-//     // clear prior data
-//     var divGameList = document.getElementById("gameListSort");
-//     while (divGameList.firstChild) {    // remove any old data so don't get duplicates
-//         divGameList.removeChild(divGameList.firstChild);
-//     };
+function createListSubset(whichType) {
+    // clear prior data
+    var divGameList = document.getElementById("gameListSort");
+    while (divGameList.firstChild) {    // remove any old data so don't get duplicates
+        divGameList.removeChild(divGameList.firstChild);
+    };
 
-//     var ul = document.createElement('ul');
+    var ul = document.createElement('ul');
 
-//     gameArray.forEach(function (element,) {
+    gameArray.forEach(function (element,) {
     
-//         //Might have problems
-//         if (element.year === whichType) {
-//             // use handy array forEach method
-//             var li = document.createElement('li');
-//             // adding a class name to each one as a way of creating a collection
-//             li.classList.add('oneVideoGame');
-//             // use the html5 "data-parm" to encode the ID of this particular data object
-//             // that we are building an li from
-//             li.setAttribute("data-parm", element.ID);
-//             li.innerHTML = element.ID + ":  " + element.Title + "  " + element.Genre;
-//             ul.appendChild(li);
-//         }
-//     });
-//     divGameList.appendChild(ul)
+        if (element.genre === whichType) {
+            // use handy array forEach method
+            var li = document.createElement('li');
+            // adding a class name to each one as a way of creating a collection
+            li.classList.add('oneVideoGame');
+            // use the html5 "data-parm" to encode the ID of this particular data object
+            // that we are building an li from
+            li.setAttribute("data-parm", element.ID);
+            li.innerHTML = element.ID + ":  " + element.title + "  " + element.genre;
+            ul.appendChild(li);
+        }
+    }); 
+    divGameList.appendChild(ul)
 
-//     // now we have the HTML done to display out list, 
-//     // next we make them active buttons
-//     // set up an event for each new li item, 
-//     var liArray = document.getElementsByClassName("oneVideoGame");
-//     Array.from(liArray).forEach(function (element) {
-//         element.addEventListener('click', function () {
-//         // get that data-parm we added for THIS particular li as we loop thru them
-//         var parm = this.getAttribute("data-parm");  // passing in the record.Id
+    // now we have the HTML done to display out list, 
+    // next we make them active buttons
+    // set up an event for each new li item, 
+    var liArray = document.getElementsByClassName("oneVideoGame");
+    Array.from(liArray).forEach(function (element) {
+        element.addEventListener('click', function () {
+        // get that data-parm we added for THIS particular li as we loop thru them
+        var parm = this.getAttribute("data-parm");  // passing in the record.Id
           
-//         // get our encoded value and save THIS ID value in the localStorage "dictionairy"
-//         localStorage.setItem('parm', parm);
-//         // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
-//         // current movie array and save it to localStorage as well.
-//         let stringGameArray = JSON.stringify(gameArray); // convert array to "string"
-//         localStorage.setItem('gameArray', stringGameArray);
+        // get our encoded value and save THIS ID value in the localStorage "dictionairy"
+        localStorage.setItem('parm', parm);
+        // but also, to get around a "bug" in jQuery Mobile, take a snapshot of the
+        // current game array and save it to localStorage as well.
+        let stringGameArray = JSON.stringify(gameArray); // convert array to "string"
+        localStorage.setItem('gameArray', stringGameArray);
         
-//          document.location.href = "index.html#details";
-//         });
-//     });
+         document.location.href = "index.html#details";
+        });
+    });
 
-// };
+};
+
+/**
+ *  https://ourcodeworld.com/articles/read/764/how-to-sort-alphabetically-an-array-of-objects-by-key-in-javascript
+* Function to sort alphabetically an array of objects by some specific key.
+* 
+* @param {string} prop Key of the object to sort.
+*/
+function extraSort(prop) {
+    var sortOrder = 1;
+
+    if (title[0] === "-") {
+        sortOrder = -1;
+        prop = prop.substr(1);
+    }
+
+    return function (a, b) {
+        if (sortOrder == -1) {
+            return b[prop].localeCompare(a[prop]);
+        } else {
+            return a[prop].localeCompare(b[prop]);
+        }
+    }
+}
 
 
-// }
- //  $(document).on('pagebeforeshow', '#add', function () {
- //     document.getElementById("title").value = ""; 
- //     document.getElementById("year").value = ""; 
- //     document.getElementById("creator").value  = ""; 
- // });
+
+
+
+

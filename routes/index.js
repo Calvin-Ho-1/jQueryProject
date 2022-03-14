@@ -12,11 +12,6 @@ let VideoGame = function (pTitle, pYear, pPlaytime, pGenre) {
     this.genre = pGenre;
     //this.creator = pCreator;
 }
-//A very real game with a very real creator
-// Also planning to remove year and creator with something else
-// ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
-// ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
-// ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
 
 
 // console.log(ServerGameArray);
@@ -25,7 +20,7 @@ var fs = require("fs")
 
 fileManager  = {
 
-  // this will read a file and put the data in our ServerNotes array
+  // this will read a file and put the data in our ServerGameArray 
   // NOTE: both read and write files are synchonous, we really can't do anything
   // useful until they are done.  If they were async, we would have to use call backs.
   read: function() {
@@ -37,11 +32,10 @@ fileManager  = {
     else {
       //A very real game with a very real creator
       // Also planning to remove year and creator with something else
-      
-      //even commenting this out will still show undefined
-      ServerGameArray.push(new VideoGame("A real game", 2022, 694, "Action"));
-      ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
-      ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
+
+      // ServerGameArray.push(new VideoGame("A real game", 2022, 694, "SinglePlayer"));
+      // ServerGameArray.push(new VideoGame("Something creative", 2014, 234, "FPS"));
+      // ServerGameArray.push(new VideoGame("Play vid game", 2018, 99999, "OpenWorld"));
       fileManager.write();
     }
   },
@@ -51,10 +45,6 @@ fileManager  = {
     fs.writeFileSync('gameData.json', data);  // write it
   },
 }
-
-
-
-
 
 
 
@@ -121,31 +111,30 @@ router.delete('/DeleteGame/:ID', (req, res) => {
   }
 });
 
-// function indexOfbyKey(obj_list, key, value) {
-//   for (index in obj_list) {
-//       if (obj_list[index][key] === value) return index;
-//   }
-//   return -1;
-// }
+function indexOfbyKey(obj_list, key, value) {
+  for (index in obj_list) {
+      if (obj_list[index][key] === value) return index;
+  }
+  return -1;
+}
 
-// router.put('/UpdateNote/:title', (req, res) => {
+// router.put('/updatedHours/:ID', (req, res) => {
 
-// const playtimeKey = req.params.title;
-// const updatedgamehours = req.body;
+// const IDKey = req.params.ID;
+// const updatedGamehours = req.body;
 // let found = true;
-// console.log(titleKey);
-// console.log(updatedNote);
+// console.log(IDKey);
+// console.log(updatedGamehours);
 
-// const updatedgamehours = indexOfbyKey(ServerGameArray, "playtime", playtimeKey);
-// if(indexofNote < 0) {
+// const gameindex = indexOfbyKey(ServerGameArray, "playtime", IDKey);
+// if(gameindex < 0) {
 //   found = false;
 // }
 // else{
-//   ServerGameArray.splice(indexofNote, 1, updatedgamehours)
-// }
+//   ServerGameArray.splice(gameindex, 1, updatedGamehours)
 
 // fileManager.write();
-
+// }
 
 //   if (!found){
 //     console.log("Didn't update")
@@ -153,9 +142,8 @@ router.delete('/DeleteGame/:ID', (req, res) => {
 //       status: "error"
 //     });
 //   } else {
-//   res.send('Your playtime is now ' + playtimeKey );
+//   res.send('Your playtime is now ' + updatedgamehours);
 //   }
-
 
 // });
 

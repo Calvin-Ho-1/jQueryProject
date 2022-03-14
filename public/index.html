@@ -15,12 +15,11 @@
     <script src="/javascripts/main.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
-
     <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" /> -->
     <!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     
-    <!-- <link rel="icon" type="image/x-icon" href="images/favicon.ico"> -->
+    
     
 
 </head>
@@ -53,8 +52,9 @@
 
     <!-- content -->
     <div data-role="content" data-theme='e'>
-        <h1></h1>
+        <h1>Welcome to my Video Game jQuery!</h1>
         <img class="image" src="./images/videogameimage.jpg" alt="image of a controller">
+        <p>My jQuery site can be used for adding games and saving the amount of hours that you spend on it.</p>
     </div>
 
 
@@ -104,13 +104,10 @@
             <label for="select-genre">Select a Genre</label>
             <select name="select-genre" id="select-genre">
                 <option value="Action">Action</option>
-                <option value="Horror">Horror</option>
                 <option value="FPS">First Person Shooter</option>
-                <option value="Fantasy">Fantasy</option>
                 <option value="OpenWorld">Open World</option>
-                <option value="Moba">Moba</option>
                 <option value="BattleRoyale">Battle Royale</option>
-                <option value="Other">Other</option>    
+                <option value="OtherGenres">Genres Not Listed</option>    
             </select>
             
             <input type="button" value="Click To Add The Video Game" id="newGame" />
@@ -122,7 +119,7 @@
 
     
     <div data-role="footer" data-theme='b'>
-        <p>Add footer here</p>
+        <h3>Add a game footer</h3>
     </div>
 </div>
 
@@ -155,9 +152,12 @@
     <div data-role="content" data-theme='e'>
 
     <p>This is where you'll see all of the games displayed</p>
-    <p>*will include active lis*</p>
 
         <div id="gameList"></div>
+
+        <input type="button" value="Sort Games By Title" id="buttonSortTitle" data-inline="true" />
+        <input type="button" value="Sort Games By Genre" id="buttonSortGenre" data-inline="true" />
+
     </div>
 
 
@@ -198,15 +198,19 @@
         <p id="oneplaytime"></p>
         <p id="onegenre"></p>
         <br>
-        <p>Add more hours to your game!</p>
-            <input type="text" value="" id="addPlaytime"/>
+        
     </div>
         <!-- A button that changes playtime and a delete button-->
         <!--CHECK THE DELETE IF IT WORKS!!!-->
-        
-        <input type="button" value="Delete The Game" id="delete" style="background: rgb(216, 11, 11)"/>
-        
+        <input type="button" value="Delete The Game" id="delete"/>
 
+
+        <!-- Enter the title to confirm to update playtime hours: <input type="text" id="confirmUpdate">
+        <input type="button" value="Update" id="updateButton"/>
+        <p><strong>Add more hours to your game!</strong></p>
+            Hours will be adjusted to: <br />
+                <input type="text" value="" id="addPlaytime"/> -->
+                <!-- <input type="button" value="Update Playtime" id="updatePlaytime"/> -->
 
      <!--    footer -->
     <div data-role="footer" data-theme='b'>
@@ -240,14 +244,13 @@
     <!-- content -->
     <div data-role="content" data-theme='e'>
 
-
-        <h3>This will sort out the game by category. These categories may include company or the creator(if only 1 developer), playtime, your rating, year it was created, or genre (there will be more or less later on).</h3>
-        <p>*will include active lis*</p>
-            <p> Here are my games in that specific category</p>
+        <p>Here, you can sort your video games by its category! Try it out!</p>
+        
+            
             <div id="gameListSort"></div>
-            <!-- <input type="button" value="100+ hours playtime" id="buttonHundredHours" data-inline="true" /> -->
-            <input type="button" value="Show Games made before 2010" id="buttonShowGameBefore" data-inline="true" />
-            <input type="button" value="Show Games made after 2010" id="buttonShowGameAfter" data-inline="true" />
+            <input type="button" value="Show only FPS games" id="fpsgenre" data-inline="true" />
+            <input type="button" value="Show only Open World Games" id="openworldgenre" data-inline="true" />
+            <input type="button" value="Show other genres" id="genreother" data-inline="true" />
             
           </div>
     </div>
