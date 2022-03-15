@@ -107,16 +107,16 @@ router.delete('/DeleteGame/:ID', (req, res) => {
       status: "error"
     });
   } else {
-  res.send('Game ' + ID + ' deleted!');
+  res.send('Game ' + ID + 'has been deleted!');
   }
 });
 
-function indexOfbyKey(obj_list, key, value) {
-  for (index in obj_list) {
-      if (obj_list[index][key] === value) return index;
-  }
-  return -1;
-}
+// function indexOfbyKey(obj_list, key, value) {
+//   for (index in obj_list) {
+//       if (obj_list[index][key] === value) return index;
+//   }
+//   return -1;
+// }
 
 // router.put('/updatedHours/:ID', (req, res) => {
 

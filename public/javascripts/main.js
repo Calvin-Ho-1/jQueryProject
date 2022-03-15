@@ -117,19 +117,19 @@ let selectedGenre = "None right now";
     
     //==============================
     // 2 sort button event methods
-    document.getElementById("buttonSortTitle").addEventListener("click", function () {
-        gameArray.sort(extraSort("title"));
-        createGameList();
-        document.location.href = "index.html#list";
-        console.log(gameArray);
-    });
+    // document.getElementById("buttonSortTitle").addEventListener("click", function () {
+    //     gameArray.sort(extraSort("title"));
+    //     createGameList();
+    //     document.location.href = "index.html#list";
+    //     console.log(gameArray);
+    // });
 
-    document.getElementById("buttonSortGenre").addEventListener("click", function () {
-        //gameArray.sort(extraSort("genre"));
-        createGameList();
-        document.location.href = "index.html#list";
-        console.log(gameArray);
-    });
+    // document.getElementById("buttonSortGenre").addEventListener("click", function () {
+    //     //gameArray.sort(extraSort("genre"));
+    //     createGameList();
+    //     document.location.href = "index.html#list";
+    //     console.log(gameArray);
+    // });
 
 
 
@@ -208,7 +208,7 @@ let selectedGenre = "None right now";
         // that we are building an li from
         li.setAttribute("data-parm", element.ID);
         
-        li.innerHTML = "The title is " + element.title + " and its release year is " + element.year;
+        li.innerHTML = "The game's title is " + element.title + " and its release year is " + element.year;
         ul.appendChild(li);
     }); 
      gameList.appendChild(ul)
@@ -314,22 +314,22 @@ function createListSubset(whichType) {
 * 
 * @param {string} prop Key of the object to sort.
 */
-function extraSort(prop) {
-    var sortOrder = 1;
+// function extraSort(prop) {
+//     var sortOrder = 1;
 
-    if (title[0] === "-") {
-        sortOrder = -1;
-        prop = prop.substr(1);
-    }
+//     if (title[0] === "-") {
+//         sortOrder = -1;
+//         prop = prop.substr(1);
+//     }
 
-    return function (a, b) {
-        if (sortOrder == -1) {
-            return b[prop].localeCompare(a[prop]);
-        } else {
-            return a[prop].localeCompare(b[prop]);
-        }
-    }
-}
+//     return function (a, b) {
+//         if (sortOrder == -1) {
+//             return b[prop].localeCompare(a[prop]);
+//         } else {
+//             return a[prop].localeCompare(b[prop]);
+//         }
+//     }
+// }
 
 
 
